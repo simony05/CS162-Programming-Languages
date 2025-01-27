@@ -1,0 +1,82 @@
+# dune runtest
+# OCAMLPARAM: unset
+# Shared cache: enabled-except-user-rules
+# Shared cache location: /Users/simon/.cache/dune/db
+# Workspace root: /Users/simon/cs162/hw1
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /Users/simon/.opam/default/bin/ocamlc.opt -config > /var/folders/vs/9n675nkx79x61sfpxwhy5ljh0000gq/T/dune_f53dcf_output
+$ (cd _build/.sandbox/425256c1ac2cb3f41a09ea7d5065e69d/default && .ppx/0bb5094b13567c3c4e1ee33245b80e63/ppx.exe --cookie 'library-name="hw1"' -o lib/part4.pp.ml --impl lib/part4.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamldep.opt -modules -impl lib/part4.pp.ml) > _build/default/lib/.hw1.objs/hw1__Part4.impl.d
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I lib/.hw1.objs/byte -I lib/.hw1.objs/native -I /Users/simon/.opam/default/lib/base -I /Users/simon/.opam/default/lib/base/base_internalhash_types -I /Users/simon/.opam/default/lib/base/shadow_stdlib -I /Users/simon/.opam/default/lib/fmt -I /Users/simon/.opam/default/lib/ocaml_intrinsics_kernel -I /Users/simon/.opam/default/lib/ppx_deriving/runtime -I /Users/simon/.opam/default/lib/sexplib0 -intf-suffix .ml -no-alias-deps -opaque -open Hw1 -o lib/.hw1.objs/native/hw1__Part4.cmx -c -impl lib/part4.pp.ml)
+> File "lib/part4.ml", line 68, characters 6-7:
+> 68 |     | _ -> e
+>            ^
+> Warning 11 [redundant-case]: this match case is unused.
+>
+> File "lib/part4.ml", line 78, characters 8-17:
+> 78 | let rec normalize (e : expr) : poly = bonus ()
+>              ^^^^^^^^^
+> Warning 39 [unused-rec-flag]: unused rec flag.
+>
+> File "lib/part4.ml", line 22, characters 4-13:
+> 22 | let show_expr (e : expr) : string = Fmt.to_to_string pp_expr e
+>          ^^^^^^^^^
+> Warning 32 [unused-value-declaration]: unused value show_expr.
+>
+> File "lib/part4.ml", line 78, characters 19-20:
+> 78 | let rec normalize (e : expr) : poly = bonus ()
+>                         ^
+> Warning 27 [unused-var-strict]: unused variable e.
+>
+> File "lib/part4.ml", line 79, characters 20-22:
+> 79 | let semantic_equiv (e1 : expr) (e2 : expr) : bool = bonus ()
+>                          ^^
+> Warning 27 [unused-var-strict]: unused variable e1.
+>
+> File "lib/part4.ml", line 79, characters 32-34:
+> 79 | let semantic_equiv (e1 : expr) (e2 : expr) : bool = bonus ()
+>                                      ^^
+> Warning 27 [unused-var-strict]: unused variable e2.
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -a -o lib/hw1.cmxa lib/.hw1.objs/native/hw1.cmx lib/.hw1.objs/native/hw1__Util.cmx lib/.hw1.objs/native/hw1__Part4.cmx lib/.hw1.objs/native/hw1__Part3.cmx lib/.hw1.objs/native/hw1__Part2.cmx lib/.hw1.objs/native/hw1__Part1.cmx)
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/hw1_test.exe /Users/simon/.opam/default/lib/fmt/fmt.cmxa /Users/simon/.opam/default/lib/astring/astring.cmxa /Users/simon/.opam/default/lib/cmdliner/cmdliner.cmxa /Users/simon/.opam/default/lib/uutf/uutf.cmxa /Users/simon/.opam/default/lib/alcotest/stdlib_ext/alcotest_stdlib_ext.cmxa /Users/simon/.opam/default/lib/fmt/fmt_cli.cmxa /Users/simon/.opam/default/lib/re/re.cmxa /Users/simon/.opam/default/lib/stdlib-shims/stdlib_shims.cmxa /Users/simon/.opam/default/lib/alcotest/engine/alcotest_engine.cmxa /Users/simon/.opam/default/lib/ocaml/unix/unix.cmxa /Users/simon/.opam/default/lib/fmt/fmt_tty.cmxa /Users/simon/.opam/default/lib/alcotest/alcotest.cmxa -I /Users/simon/.opam/default/lib/alcotest /Users/simon/.opam/default/lib/base/base_internalhash_types/base_internalhash_types.cmxa -I /Users/simon/.opam/default/lib/base/base_internalhash_types /Users/simon/.opam/default/lib/sexplib0/sexplib0.cmxa /Users/simon/.opam/default/lib/base/shadow_stdlib/shadow_stdlib.cmxa /Users/simon/.opam/default/lib/ocaml_intrinsics_kernel/ocaml_intrinsics_kernel.cmxa -I /Users/simon/.opam/default/lib/ocaml_intrinsics_kernel /Users/simon/.opam/default/lib/base/base.cmxa -I /Users/simon/.opam/default/lib/base /Users/simon/.opam/default/lib/ppx_deriving/runtime/ppx_deriving_runtime.cmxa lib/hw1.cmxa test/.hw1_test.eobjs/native/dune__exe.cmx test/.hw1_test.eobjs/native/dune__exe__Utils.cmx test/.hw1_test.eobjs/native/dune__exe__Part1.cmx test/.hw1_test.eobjs/native/dune__exe__Part2.cmx test/.hw1_test.eobjs/native/dune__exe__Part3.cmx test/.hw1_test.eobjs/native/dune__exe__Part4.cmx test/.hw1_test.eobjs/native/dune__exe__Hw1_test.cmx)
+$ (cd _build/default/test && ./hw1_test.exe)
+> Testing `hw1'.
+> This run has ID `96TJA5V5'.
+>
+>   [OK]          fib                     0   fib.
+>   [OK]          compress                0   compress.
+>   [OK]          max                     0   max.
+>   [OK]          join                    0   join.
+>   [OK]          lookup                  0   lookup.
+>   [OK]          equal_tree              0   equal_tree.
+>   [OK]          timestamp               0   timestamp.
+>   [OK]          eval_expr               0   eval_expr.
+>   [OK]          simplify                0   simplify.
+>   [OK]          eval_poly               0   eval_poly.
+> > [FAIL]        normalize               0   normalize.
+>   [FAIL]        semantic_equiv          0   semantic_equiv.
+>
+> ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+> │ [FAIL]        normalize               0   normalize.                                                             │
+> └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+> [failure] Bonus
+>           Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
+>           Called from Dune__exe__Utils.test_io in file "test/utils.ml", line 2, characters 47-52
+>           Called from Alcotest_engine__Core.Make.protect_test.(fun) in file "src/alcotest-engine/core.ml", line 186, characters 17-23
+>           Called from Alcotest_engine__Monad.Identity.catch in file "src/alcotest-engine/monad.ml", line 24, characters 31-35
+>           
+> Logs saved to `~/cs162/hw1/_build/default/test/_build/_tests/hw1/normalize.000.output'.
+>  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+>
+> Full test results in `~/cs162/hw1/_build/default/test/_build/_tests/hw1'.
+> 2 failures! in 0.003s. 12 tests run.
+[1]
