@@ -1,0 +1,61 @@
+# dune runtest
+# OCAMLPARAM: unset
+# Shared cache: enabled-except-user-rules
+# Shared cache location: /Users/simon/.cache/dune/db
+# Workspace root: /Users/simon/Documents/GitHub/CS162-Programming-Languages/hw2
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /Users/simon/.opam/default/bin/ocamlc.opt -config > /var/folders/vs/9n675nkx79x61sfpxwhy5ljh0000gq/T/dune_5e876b_output
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I lib/part1/.part1.objs/byte -I lib/part1/.part1.objs/native -intf-suffix .ml -no-alias-deps -opaque -o lib/part1/.part1.objs/native/part1.cmx -c -impl lib/part1/part1.ml)
+> File "lib/part1/part1.ml", line 10, characters 11-13:
+> 10 | let power (xs : 'a list) : 'a list list = todo ()
+>                 ^^
+> Warning 27 [unused-var-strict]: unused variable xs.
+>
+> File "lib/part1/part1.ml", line 13, characters 28-29:
+> 13 |  fun x -> match x with Some x -> todo () | None -> todo ()
+>                                  ^
+> Warning 27 [unused-var-strict]: unused variable x.
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -a -o lib/part1/part1.cmxa lib/part1/.part1.objs/native/part1.cmx)
+$ (cd _build/default && /Users/simon/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/hw2_test.exe /Users/simon/.opam/default/lib/fmt/fmt.cmxa /Users/simon/.opam/default/lib/base/base_internalhash_types/base_internalhash_types.cmxa -I /Users/simon/.opam/default/lib/base/base_internalhash_types /Users/simon/.opam/default/lib/sexplib0/sexplib0.cmxa /Users/simon/.opam/default/lib/base/shadow_stdlib/shadow_stdlib.cmxa /Users/simon/.opam/default/lib/ocaml_intrinsics_kernel/ocaml_intrinsics_kernel.cmxa -I /Users/simon/.opam/default/lib/ocaml_intrinsics_kernel /Users/simon/.opam/default/lib/base/base.cmxa -I /Users/simon/.opam/default/lib/base /Users/simon/.opam/default/lib/astring/astring.cmxa /Users/simon/.opam/default/lib/cmdliner/cmdliner.cmxa /Users/simon/.opam/default/lib/uutf/uutf.cmxa /Users/simon/.opam/default/lib/alcotest/stdlib_ext/alcotest_stdlib_ext.cmxa /Users/simon/.opam/default/lib/fmt/fmt_cli.cmxa /Users/simon/.opam/default/lib/re/re.cmxa /Users/simon/.opam/default/lib/stdlib-shims/stdlib_shims.cmxa /Users/simon/.opam/default/lib/alcotest/engine/alcotest_engine.cmxa /Users/simon/.opam/default/lib/ocaml/unix/unix.cmxa /Users/simon/.opam/default/lib/fmt/fmt_tty.cmxa /Users/simon/.opam/default/lib/alcotest/alcotest.cmxa -I /Users/simon/.opam/default/lib/alcotest lib/part1/part1.cmxa /Users/simon/.opam/default/lib/ppx_sexp_conv/runtime-lib/ppx_sexp_conv_lib.cmxa /Users/simon/.opam/default/lib/ppx_compare/runtime-lib/ppx_compare_lib.cmxa /Users/simon/.opam/default/lib/ppx_enumerate/runtime-lib/ppx_enumerate_lib.cmxa /Users/simon/.opam/default/lib/ppx_hash/runtime-lib/ppx_hash_lib.cmxa /Users/simon/.opam/default/lib/ppx_here/runtime-lib/ppx_here_lib.cmxa /Users/simon/.opam/default/lib/ppx_assert/runtime-lib/ppx_assert_lib.cmxa /Users/simon/.opam/default/lib/ppx_bench/runtime-lib/ppx_bench_lib.cmxa /Users/simon/.opam/default/lib/base/md5/md5_lib.cmxa /Users/simon/.opam/default/lib/fieldslib/fieldslib.cmxa /Users/simon/.opam/default/lib/variantslib/variantslib.cmxa /Users/simon/.opam/default/lib/bin_prot/shape/bin_shape.cmxa /Users/simon/.opam/default/lib/ppx_stable_witness/stable_witness/stable_witness.cmxa /Users/simon/.opam/default/lib/bin_prot/bin_prot.cmxa -I /Users/simon/.opam/default/lib/bin_prot /Users/simon/.opam/default/lib/ppx_inline_test/config/inline_test_config.cmxa /Users/simon/.opam/default/lib/jane-street-headers/jane_street_headers.cmxa /Users/simon/.opam/default/lib/time_now/time_now.cmxa -I /Users/simon/.opam/default/lib/time_now /Users/simon/.opam/default/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cmxa /Users/simon/.opam/default/lib/stdio/stdio.cmxa /Users/simon/.opam/default/lib/ppx_module_timer/runtime/ppx_module_timer_runtime.cmxa /Users/simon/.opam/default/lib/ppx_stable_witness/runtime/ppx_stable_witness_runtime.cmxa /Users/simon/.opam/default/lib/ppx_string/runtime/ppx_string_runtime.cmxa /Users/simon/.opam/default/lib/typerep/typerep_lib.cmxa /Users/simon/.opam/default/lib/ppxlib/print_diff/ppxlib_print_diff.cmxa /Users/simon/.opam/default/lib/ppx_expect/make_corrected_file/make_corrected_file.cmxa /Users/simon/.opam/default/lib/ppx_expect/config_types/expect_test_config_types.cmxa /Users/simon/.opam/default/lib/ppx_expect/config/expect_test_config.cmxa /Users/simon/.opam/default/lib/ppx_expect/runtime/ppx_expect_runtime.cmxa -I /Users/simon/.opam/default/lib/ppx_expect/runtime /Users/simon/.opam/default/lib/parsexp/parsexp.cmxa /Users/simon/.opam/default/lib/sexplib/sexplib.cmxa /Users/simon/.opam/default/lib/ppx_log/types/ppx_log_types.cmxa /Users/simon/.opam/default/lib/ppx_log/syntax/ppx_log_syntax.cmxa /Users/simon/.opam/default/lib/splittable_random/splittable_random.cmxa /Users/simon/.opam/default/lib/base_quickcheck/base_quickcheck.cmxa /Users/simon/.opam/default/lib/base_quickcheck/ppx_quickcheck/runtime/ppx_quickcheck_runtime.cmxa /Users/simon/.opam/default/lib/ppx_deriving/runtime/ppx_deriving_runtime.cmxa lib/part2/lamp.cmxa test/.hw2_test.eobjs/native/dune__exe.cmx test/.hw2_test.eobjs/native/dune__exe__Test_part1.cmx test/.hw2_test.eobjs/native/dune__exe__Test_part2.cmx test/.hw2_test.eobjs/native/dune__exe__Hw2_test.cmx)
+$ (cd _build/default/test && ./hw2_test.exe)
+> Testing `hw2'.
+> This run has ID `XGRD4VJR'.
+>
+>   [OK]          singletons           0   singletons.
+>   [OK]          map2d                0   map2d.
+>   [OK]          product              0   product.
+> > [FAIL]        power                0   power.
+>   [FAIL]        both                 0   both.
+>   [FAIL]        free_vars            0   free_vars.
+>   [FAIL]        subst                0   subst.
+>   [FAIL]        eval                 0   eval.
+>   [FAIL]        eval                 1   eval.
+>   [FAIL]        eval_stuck           0   eval_stuck.
+>   [FAIL]        subst_multi          0   subst_multi.
+>   [FAIL]        alpha_equiv          0   alpha_equiv.
+>   [FAIL]        alpha_equiv          1   alpha_equiv.
+>
+> ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+> │ [FAIL]        power                0   power.                                                              │
+> └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+> [failure] TODO
+>           Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
+>           Called from Dune__exe__Test_part1.test_power in file "test/test_part1.ml", line 26, characters 18-28
+>           Called from Alcotest_engine__Core.Make.protect_test.(fun) in file "src/alcotest-engine/core.ml", line 186, characters 17-23
+>           Called from Alcotest_engine__Monad.Identity.catch in file "src/alcotest-engine/monad.ml", line 24, characters 31-35
+>           
+> Logs saved to `~/Documents/GitHub/CS162-Programming-Languages/hw2/_build/default/test/_build/_tests/hw2/power.000.output'.
+>  ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+>
+> Full test results in `~/Documents/GitHub/CS162-Programming-Languages/hw2/_build/default/test/_build/_tests/hw2'.
+> 10 failures! in 0.003s. 13 tests run.
+[1]
