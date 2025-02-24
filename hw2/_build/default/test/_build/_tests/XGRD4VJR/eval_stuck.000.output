@@ -1,8 +1,0 @@
-[failure] TODO
-          Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
-          Called from Lamp__Eval.todo in file "lib/part2/eval.ml" (inlined), line 3, characters 14-29
-          Called from Lamp__Eval.eval in file "lib/part2/eval.ml", line 41, characters 28-35
-          Called from Dune__exe__Test_part2.test_stuck in file "test/test_part2.ml", line 61, characters 12-18
-          Called from Alcotest_engine__Core.Make.protect_test.(fun) in file "src/alcotest-engine/core.ml", line 186, characters 17-23
-          Called from Alcotest_engine__Monad.Identity.catch in file "src/alcotest-engine/monad.ml", line 24, characters 31-35
-          
