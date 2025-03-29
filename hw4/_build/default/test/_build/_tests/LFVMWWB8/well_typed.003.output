@@ -1,0 +1,51 @@
+[33mASSERT[0m let map = (Ast.Fix (
+             (Some (Ast.TFun ((Ast.TFun (Ast.TInt, Ast.TInt)),
+                      (Ast.TFun ((Ast.TList Ast.TInt), (Ast.TList Ast.TInt)))
+                      ))),
+             ("map",
+              (Ast.Lambda ((Some (Ast.TFun (Ast.TInt, Ast.TInt))),
+                 ("f",
+                  (Ast.Lambda ((Some (Ast.TList Ast.TInt)),
+                     ("l",
+                      (Ast.Annot (
+                         (Ast.ListMatch ((Ast.Var "l"),
+                            (Ast.ListNil (Some Ast.TInt)),
+                            ("x",
+                             ("xs",
+                              (Ast.ListCons (
+                                 (Ast.App ((Ast.Var "f"), (Ast.Var "x"))),
+                                 (Ast.App (
+                                    (Ast.App ((Ast.Var "map"), (Ast.Var "f")
+                                       )),
+                                    (Ast.Var "l")))
+                                 ))))
+                            )),
+                         (Ast.TList Ast.TInt))))
+                     )))
+                 )))
+             )) in
+(Ast.Let (
+   (Ast.Lambda ((Some (Ast.TList Ast.TInt)),
+      ("l",
+       (Ast.Lambda ((Some Ast.TInt),
+          ("n",
+           (Ast.Annot (
+              (Ast.App (
+                 (Ast.App ((Ast.Var "map"),
+                    (Ast.Lambda ((Some Ast.TInt),
+                       ("m",
+                        (Ast.Binop (Ast.Add, (Ast.Var "n"), (Ast.Var "m"))))
+                       ))
+                    )),
+                 (Ast.Var "l"))),
+              (Ast.TList Ast.TInt))))
+          )))
+      )),
+   ("add_n",
+    (Ast.App (
+       (Ast.App ((Ast.Var "add_n"),
+          (Ast.ListCons ((Ast.Num 1),
+             (Ast.ListCons ((Ast.Num 2), (Ast.ListNil (Some Ast.TInt))))))
+          )),
+       (Ast.Num 10))))
+   ))

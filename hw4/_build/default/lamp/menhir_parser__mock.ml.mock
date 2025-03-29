@@ -1,0 +1,1376 @@
+
+type token = 
+  | WITH
+  | VOID
+  | TYLIST
+  | TYINT
+  | TYBOOL
+  | TRUE
+  | TIMES
+  | TICK
+  | THINARROW
+  | THEN
+  | SUB
+  | SND
+  | RPAREN
+  | REC
+  | RBRACK
+  | PLUS
+  | NUMBER of (
+# 33 "lamp/menhir_parser.mly"
+       (int)
+# 23 "lamp/menhir_parser__mock.ml.mock"
+)
+  | NIL
+  | MATCH
+  | LT
+  | LPAREN
+  | LET
+  | LBRACK
+  | LAMBDA
+  | IS
+  | IN
+  | IF
+  | ID of (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 38 "lamp/menhir_parser__mock.ml.mock"
+)
+  | GT
+  | FUN
+  | FST
+  | FORALL
+  | FIX
+  | FILE of (
+# 35 "lamp/menhir_parser.mly"
+       (string)
+# 48 "lamp/menhir_parser__mock.ml.mock"
+)
+  | FALSE
+  | EQ
+  | EOF
+  | END
+  | ELSE
+  | DOT
+  | CSYNTH
+  | CSAVE
+  | CPRINT
+  | CONS
+  | COMMA
+  | COLON
+  | CLOAD
+  | CLET
+  | CCLEAR
+  | CASE2
+  | CASE1
+  | BAR
+
+# 1 "lamp/menhir_parser.mly"
+  
+
+let mk_lambdas (xs : (string * Ast.ty option) list) (e : Ast.expr) (r: Ast.ty option) =
+  let f (x, topt) e' = Ast.Lambda(topt, (x,e')) in
+  List.fold_right f xs (match r with None -> e | Some r -> Annot(e, r))
+
+let mk_tfun_of_list (xs: (string * Ast.ty option) list) (r: Ast.ty option) : Ast.ty option =
+  match r with
+  | Some r ->
+    List.fold_right (fun (x,topt) fo ->
+      match topt, fo with
+      | Some t, Some r -> Some (Ast.TFun(t,r))
+      | _ -> None) xs (Some r)
+  | None -> None
+let mk_let (x: string) (ty: Ast.ty option) (e1: Ast.expr) (e2: Ast.expr) : Ast.expr =
+  match ty with
+  | Some t -> Ast.Let(Ast.Annot(e1, t), (x, e2))
+  | None -> Ast.Let(e1, (x, e2))
+
+# 89 "lamp/menhir_parser__mock.ml.mock"
+
+let menhir_begin_marker =
+  0
+
+and (xv_void_match, xv_tyarg_opt, xv_ty_var, xv_ty_eof, xv_ty_atom, xv_ty, xv_term, xv_sum_match, xv_separated_nonempty_list_COMMA_bind_, xv_script_eof, xv_repl_command_eof, xv_repl_command, xv_option_BAR_, xv_nil_branch, xv_list_match, xv_list_file_command_, xv_file_command, xv_expr_eof, xv_expr, xv_cons_branch, xv_case_CASE2_, xv_case_CASE1_, xv_binop_expr_, xv_bindlist, xv_bind, xv_app) =
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 252 "<standard.mly>"
+                    xs
+# 98 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_separated_nonempty_list_COMMA_bind_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
+# 252 "<standard.mly>"
+        _2
+# 102 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 252 "<standard.mly>"
+  x
+# 106 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_separated_nonempty_list_COMMA_bind_ ->
+    
+# 253 "<standard.mly>"
+    ( x :: xs )
+# 111 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 249 "<standard.mly>"
+  x
+# 116 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_separated_nonempty_list_COMMA_bind_ ->
+    
+# 250 "<standard.mly>"
+    ( [ x ] )
+# 121 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 113 "<standard.mly>"
+  x
+# 126 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_option_BAR_ ->
+    
+# 114 "<standard.mly>"
+    ( Some x )
+# 131 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) : 'tv_option_BAR_ ->
+    
+# 111 "<standard.mly>"
+    ( None )
+# 137 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 218 "<standard.mly>"
+         xs
+# 142 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_list_file_command_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
+# 218 "<standard.mly>"
+  x
+# 146 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_file_command) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_list_file_command_ ->
+    
+# 219 "<standard.mly>"
+    ( x :: xs )
+# 151 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) : 'tv_list_file_command_ ->
+    
+# 216 "<standard.mly>"
+    ( [] )
+# 157 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 220 "lamp/menhir_parser.mly"
+                      _4
+# 162 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 220 "lamp/menhir_parser.mly"
+                 _3
+# 166 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 220 "lamp/menhir_parser.mly"
+          e1
+# 170 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 220 "lamp/menhir_parser.mly"
+   _1
+# 174 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_void_match ->
+    
+# 221 "lamp/menhir_parser.mly"
+    ( Ast.Absurd e1 )
+# 179 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) : 'tv_tyarg_opt ->
+    
+# 195 "lamp/menhir_parser.mly"
+    ( None )
+# 185 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 192 "lamp/menhir_parser.mly"
+             _3
+# 190 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 192 "lamp/menhir_parser.mly"
+          _2
+# 194 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 192 "lamp/menhir_parser.mly"
+   _1
+# 198 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_tyarg_opt ->
+    
+# 193 "lamp/menhir_parser.mly"
+    ( Some _2 )
+# 203 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 93 "lamp/menhir_parser.mly"
+        _2
+# 208 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 212 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 93 "lamp/menhir_parser.mly"
+   _1
+# 216 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty_var ->
+    
+# 94 "lamp/menhir_parser.mly"
+    ( ("\'" ^ _2) )
+# 221 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 111 "lamp/menhir_parser.mly"
+        _2
+# 226 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 111 "lamp/menhir_parser.mly"
+    t
+# 230 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) : (
+# 55 "lamp/menhir_parser.mly"
+      (Ast.ty)
+# 234 "lamp/menhir_parser__mock.ml.mock"
+  ) ->
+    (
+# 112 "lamp/menhir_parser.mly"
+    ( t )
+# 239 "lamp/menhir_parser__mock.ml.mock"
+     : 'tv_ty_eof) in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 107 "lamp/menhir_parser.mly"
+   _1
+# 244 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty_atom ->
+    
+# 108 "lamp/menhir_parser.mly"
+    ( Ast.TVoid )
+# 249 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 105 "lamp/menhir_parser.mly"
+          _2
+# 254 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 105 "lamp/menhir_parser.mly"
+   _1
+# 258 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty_atom ->
+    
+# 106 "lamp/menhir_parser.mly"
+    ( Ast.TUnit )
+# 263 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 103 "lamp/menhir_parser.mly"
+               _3
+# 268 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 103 "lamp/menhir_parser.mly"
+           t
+# 272 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
+# 103 "lamp/menhir_parser.mly"
+   _1
+# 276 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty_atom ->
+    
+# 104 "lamp/menhir_parser.mly"
+    ( t )
+# 281 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 101 "lamp/menhir_parser.mly"
+   _1
+# 286 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty_atom ->
+    
+# 102 "lamp/menhir_parser.mly"
+    ( Ast.TBool )
+# 291 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 99 "lamp/menhir_parser.mly"
+   _1
+# 296 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty_atom ->
+    
+# 100 "lamp/menhir_parser.mly"
+    ( Ast.TInt )
+# 301 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 97 "lamp/menhir_parser.mly"
+    x
+# 306 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty_var) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_ty_atom ->
+    
+# 98 "lamp/menhir_parser.mly"
+    ( Ast.TVar x )
+# 311 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 123 "lamp/menhir_parser.mly"
+                      _4
+# 316 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 123 "lamp/menhir_parser.mly"
+                  t
+# 320 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
+# 123 "lamp/menhir_parser.mly"
+          _2
+# 324 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 123 "lamp/menhir_parser.mly"
+   _1
+# 328 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_ty ->
+    
+# 124 "lamp/menhir_parser.mly"
+    ( TList t )
+# 333 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 121 "lamp/menhir_parser.mly"
+               t2
+# 338 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t2_ : Lexing.position) (_endpos_t2_ : Lexing.position) (_startofs_t2_ : int) (_endofs_t2_ : int) (_loc_t2_ : Lexing.position * Lexing.position) (
+# 121 "lamp/menhir_parser.mly"
+         _2
+# 342 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 121 "lamp/menhir_parser.mly"
+    t1
+# 346 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t1_ : Lexing.position) (_endpos_t1_ : Lexing.position) (_startofs_t1_ : int) (_endofs_t1_ : int) (_loc_t1_ : Lexing.position * Lexing.position) : 'tv_ty ->
+    
+# 122 "lamp/menhir_parser.mly"
+    ( TSum (t1, t2) )
+# 351 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 119 "lamp/menhir_parser.mly"
+                t2
+# 356 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t2_ : Lexing.position) (_endpos_t2_ : Lexing.position) (_startofs_t2_ : int) (_endofs_t2_ : int) (_loc_t2_ : Lexing.position * Lexing.position) (
+# 119 "lamp/menhir_parser.mly"
+         _2
+# 360 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 119 "lamp/menhir_parser.mly"
+    t1
+# 364 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t1_ : Lexing.position) (_endpos_t1_ : Lexing.position) (_startofs_t1_ : int) (_endofs_t1_ : int) (_loc_t1_ : Lexing.position * Lexing.position) : 'tv_ty ->
+    
+# 120 "lamp/menhir_parser.mly"
+    ( TProd (t1, t2) )
+# 369 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 117 "lamp/menhir_parser.mly"
+                    t2
+# 374 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t2_ : Lexing.position) (_endpos_t2_ : Lexing.position) (_startofs_t2_ : int) (_endofs_t2_ : int) (_loc_t2_ : Lexing.position * Lexing.position) (
+# 117 "lamp/menhir_parser.mly"
+         _2
+# 378 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 117 "lamp/menhir_parser.mly"
+    t1
+# 382 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t1_ : Lexing.position) (_endpos_t1_ : Lexing.position) (_startofs_t1_ : int) (_endofs_t1_ : int) (_loc_t1_ : Lexing.position * Lexing.position) : 'tv_ty ->
+    
+# 118 "lamp/menhir_parser.mly"
+    ( TFun (t1, t2) )
+# 387 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 115 "lamp/menhir_parser.mly"
+    t
+# 392 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty_atom) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) : 'tv_ty ->
+    
+# 116 "lamp/menhir_parser.mly"
+    ( t )
+# 397 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 242 "lamp/menhir_parser.mly"
+          _2
+# 402 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 242 "lamp/menhir_parser.mly"
+   _1
+# 406 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 243 "lamp/menhir_parser.mly"
+    ( Ast.Unit )
+# 411 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 240 "lamp/menhir_parser.mly"
+          _2
+# 416 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 240 "lamp/menhir_parser.mly"
+    e
+# 420 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_term) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 241 "lamp/menhir_parser.mly"
+    ( Ast.I2 e )
+# 425 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 238 "lamp/menhir_parser.mly"
+          _2
+# 430 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 238 "lamp/menhir_parser.mly"
+    e
+# 434 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_term) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 239 "lamp/menhir_parser.mly"
+    ( Ast.I1 e )
+# 439 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 236 "lamp/menhir_parser.mly"
+                                _5
+# 444 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 236 "lamp/menhir_parser.mly"
+                         e2
+# 448 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 236 "lamp/menhir_parser.mly"
+                  _3
+# 452 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 236 "lamp/menhir_parser.mly"
+           e1
+# 456 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 236 "lamp/menhir_parser.mly"
+   _1
+# 460 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 237 "lamp/menhir_parser.mly"
+    ( Ast.Both(e1, e2) )
+# 465 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 234 "lamp/menhir_parser.mly"
+                 _3
+# 470 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 234 "lamp/menhir_parser.mly"
+           e
+# 474 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 234 "lamp/menhir_parser.mly"
+   _1
+# 478 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 235 "lamp/menhir_parser.mly"
+    ( e )
+# 483 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 232 "lamp/menhir_parser.mly"
+        t
+# 488 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_tyarg_opt) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
+# 232 "lamp/menhir_parser.mly"
+   _1
+# 492 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 233 "lamp/menhir_parser.mly"
+    ( ListNil t )
+# 497 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 230 "lamp/menhir_parser.mly"
+   _1
+# 502 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 231 "lamp/menhir_parser.mly"
+    ( Ast.False )
+# 507 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 228 "lamp/menhir_parser.mly"
+   _1
+# 512 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 229 "lamp/menhir_parser.mly"
+    ( Ast.True )
+# 517 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 226 "lamp/menhir_parser.mly"
+    n
+# 522 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 33 "lamp/menhir_parser.mly"
+       (int)
+# 526 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_n_ : Lexing.position) (_endpos_n_ : Lexing.position) (_startofs_n_ : int) (_endofs_n_ : int) (_loc_n_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 227 "lamp/menhir_parser.mly"
+    ( Ast.Num n )
+# 531 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 224 "lamp/menhir_parser.mly"
+    x
+# 536 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 540 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_term ->
+    
+# 225 "lamp/menhir_parser.mly"
+    ( Ast.Var x )
+# 545 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+                                                                    _8
+# 550 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+                                                      b3
+# 554 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_case_CASE2_) (_startpos_b3_ : Lexing.position) (_endpos_b3_ : Lexing.position) (_startofs_b3_ : int) (_endofs_b3_ : int) (_loc_b3_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+                                                 _6
+# 558 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+                                   b2
+# 562 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_case_CASE1_) (_startpos_b2_ : Lexing.position) (_endpos_b2_ : Lexing.position) (_startofs_b2_ : int) (_endofs_b2_ : int) (_loc_b2_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+                      _4
+# 566 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_option_BAR_) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+                 _3
+# 570 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+          e1
+# 574 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 216 "lamp/menhir_parser.mly"
+   _1
+# 578 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_sum_match ->
+    
+# 217 "lamp/menhir_parser.mly"
+    ( Ast.Either(e1, b2, b3) )
+# 583 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 85 "lamp/menhir_parser.mly"
+                         _2
+# 588 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 85 "lamp/menhir_parser.mly"
+    cs
+# 592 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_list_file_command_) (_startpos_cs_ : Lexing.position) (_endpos_cs_ : Lexing.position) (_startofs_cs_ : int) (_endofs_cs_ : int) (_loc_cs_ : Lexing.position * Lexing.position) : (
+# 52 "lamp/menhir_parser.mly"
+      (Cmd.t list)
+# 596 "lamp/menhir_parser__mock.ml.mock"
+  ) ->
+    (
+# 86 "lamp/menhir_parser.mly"
+    ( cs )
+# 601 "lamp/menhir_parser__mock.ml.mock"
+     : 'tv_script_eof) in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 81 "lamp/menhir_parser.mly"
+                  _2
+# 606 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 81 "lamp/menhir_parser.mly"
+    c
+# 610 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_repl_command) (_startpos_c_ : Lexing.position) (_endpos_c_ : Lexing.position) (_startofs_c_ : int) (_endofs_c_ : int) (_loc_c_ : Lexing.position * Lexing.position) : (
+# 49 "lamp/menhir_parser.mly"
+      (Cmd.t)
+# 614 "lamp/menhir_parser__mock.ml.mock"
+  ) ->
+    (
+# 82 "lamp/menhir_parser.mly"
+    ( c )
+# 619 "lamp/menhir_parser__mock.ml.mock"
+     : 'tv_repl_command_eof) in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 77 "lamp/menhir_parser.mly"
+   _1
+# 624 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_repl_command ->
+    
+# 78 "lamp/menhir_parser.mly"
+    ( Cmd.CEval _1 )
+# 629 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 75 "lamp/menhir_parser.mly"
+    c
+# 634 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_file_command) (_startpos_c_ : Lexing.position) (_endpos_c_ : Lexing.position) (_startofs_c_ : int) (_endofs_c_ : int) (_loc_c_ : Lexing.position * Lexing.position) : 'tv_repl_command ->
+    
+# 76 "lamp/menhir_parser.mly"
+    ( c )
+# 639 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 198 "lamp/menhir_parser.mly"
+                  e
+# 644 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 198 "lamp/menhir_parser.mly"
+       _2
+# 648 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 198 "lamp/menhir_parser.mly"
+   _1
+# 652 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_nil_branch ->
+    
+# 199 "lamp/menhir_parser.mly"
+    ( e )
+# 657 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+                                                                   _8
+# 662 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+                                                     b3
+# 666 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_cons_branch) (_startpos_b3_ : Lexing.position) (_endpos_b3_ : Lexing.position) (_startofs_b3_ : int) (_endofs_b3_ : int) (_loc_b3_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+                                                _6
+# 670 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+                                   e2
+# 674 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_nil_branch) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+                      _4
+# 678 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_option_BAR_) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+                 _3
+# 682 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+          e1
+# 686 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 206 "lamp/menhir_parser.mly"
+   _1
+# 690 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_list_match ->
+    
+# 207 "lamp/menhir_parser.mly"
+    (
+      let (x,y,e3) = b3  in
+      Ast.ListMatch(e1, e2, (x, (y, e3))))
+# 697 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 71 "lamp/menhir_parser.mly"
+          _2
+# 702 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 71 "lamp/menhir_parser.mly"
+   _1
+# 706 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_file_command ->
+    
+# 72 "lamp/menhir_parser.mly"
+    ( Cmd.CSynth _2 )
+# 711 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 69 "lamp/menhir_parser.mly"
+         _2
+# 716 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 35 "lamp/menhir_parser.mly"
+       (string)
+# 720 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 69 "lamp/menhir_parser.mly"
+   _1
+# 724 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_file_command ->
+    
+# 70 "lamp/menhir_parser.mly"
+    ( Cmd.CSave _2 )
+# 729 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 67 "lamp/menhir_parser.mly"
+         _2
+# 734 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 35 "lamp/menhir_parser.mly"
+       (string)
+# 738 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 67 "lamp/menhir_parser.mly"
+   _1
+# 742 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_file_command ->
+    
+# 68 "lamp/menhir_parser.mly"
+    ( Cmd.CLoad _2 )
+# 747 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 65 "lamp/menhir_parser.mly"
+   _1
+# 752 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_file_command ->
+    
+# 66 "lamp/menhir_parser.mly"
+    ( Cmd.CClear)
+# 757 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 63 "lamp/menhir_parser.mly"
+   _1
+# 762 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_file_command ->
+    
+# 64 "lamp/menhir_parser.mly"
+    ( Cmd.CPrint)
+# 767 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 61 "lamp/menhir_parser.mly"
+                _4
+# 772 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 61 "lamp/menhir_parser.mly"
+             _3
+# 776 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 61 "lamp/menhir_parser.mly"
+        _2
+# 780 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 61 "lamp/menhir_parser.mly"
+   _1
+# 784 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_file_command ->
+    
+# 62 "lamp/menhir_parser.mly"
+    ( let (x,t) = _2 in Cmd.CLet(x,t,_4) )
+# 789 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 89 "lamp/menhir_parser.mly"
+          _2
+# 794 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 89 "lamp/menhir_parser.mly"
+    e
+# 798 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : (
+# 46 "lamp/menhir_parser.mly"
+      (Ast.expr)
+# 802 "lamp/menhir_parser__mock.ml.mock"
+  ) ->
+    (
+# 90 "lamp/menhir_parser.mly"
+    ( e )
+# 807 "lamp/menhir_parser__mock.ml.mock"
+     : 'tv_expr_eof) in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 166 "lamp/menhir_parser.mly"
+           e
+# 812 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 166 "lamp/menhir_parser.mly"
+   _1
+# 816 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 167 "lamp/menhir_parser.mly"
+    ( E2 e )
+# 821 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 164 "lamp/menhir_parser.mly"
+           e
+# 826 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 164 "lamp/menhir_parser.mly"
+   _1
+# 830 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 165 "lamp/menhir_parser.mly"
+    ( E1 e )
+# 835 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 162 "lamp/menhir_parser.mly"
+    e
+# 840 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_binop_expr_) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 163 "lamp/menhir_parser.mly"
+    ( e )
+# 845 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 160 "lamp/menhir_parser.mly"
+    e
+# 850 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_void_match) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 161 "lamp/menhir_parser.mly"
+    ( e )
+# 855 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 158 "lamp/menhir_parser.mly"
+    e
+# 860 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_sum_match) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 159 "lamp/menhir_parser.mly"
+    ( e )
+# 865 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 156 "lamp/menhir_parser.mly"
+    e
+# 870 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_list_match) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 157 "lamp/menhir_parser.mly"
+    ( e )
+# 875 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 154 "lamp/menhir_parser.mly"
+                                 e3
+# 880 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e3_ : Lexing.position) (_endpos_e3_ : Lexing.position) (_startofs_e3_ : int) (_endofs_e3_ : int) (_loc_e3_ : Lexing.position * Lexing.position) (
+# 154 "lamp/menhir_parser.mly"
+                           _5
+# 884 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 154 "lamp/menhir_parser.mly"
+                    e2
+# 888 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 154 "lamp/menhir_parser.mly"
+              _3
+# 892 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 154 "lamp/menhir_parser.mly"
+       e1
+# 896 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 154 "lamp/menhir_parser.mly"
+   _1
+# 900 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 155 "lamp/menhir_parser.mly"
+    ( IfThenElse(e1, e2, e3) )
+# 905 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 151 "lamp/menhir_parser.mly"
+                             e2
+# 910 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 151 "lamp/menhir_parser.mly"
+                         _5
+# 914 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 151 "lamp/menhir_parser.mly"
+                  e1
+# 918 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 151 "lamp/menhir_parser.mly"
+              _3
+# 922 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 151 "lamp/menhir_parser.mly"
+        b
+# 926 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
+# 151 "lamp/menhir_parser.mly"
+   _1
+# 930 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 152 "lamp/menhir_parser.mly"
+    ( let (x, topt) = b in
+      mk_let x topt e1 e2 )
+# 936 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 149 "lamp/menhir_parser.mly"
+                  e
+# 941 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 149 "lamp/menhir_parser.mly"
+              _3
+# 945 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 149 "lamp/menhir_parser.mly"
+        b
+# 949 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
+# 149 "lamp/menhir_parser.mly"
+   _1
+# 953 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 150 "lamp/menhir_parser.mly"
+    ( let (x, topt) = b in Fix (topt, (x, e)) )
+# 958 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+                                              e2
+# 963 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+                                          _7
+# 967 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+                                   e1
+# 971 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+                               _5
+# 975 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+                    bs
+# 979 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bindlist) (_startpos_bs_ : Lexing.position) (_endpos_bs_ : Lexing.position) (_startofs_bs_ : int) (_endofs_bs_ : int) (_loc_bs_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+              _3
+# 983 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+        b
+# 987 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
+# 146 "lamp/menhir_parser.mly"
+   _1
+# 991 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 147 "lamp/menhir_parser.mly"
+    ( let (x,r) = b in
+      Let(mk_lambdas bs e1 r, (x, e2)) )
+# 997 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+                                                  e2
+# 1002 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+                                              _8
+# 1006 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+                                       e1
+# 1010 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+                                   _6
+# 1014 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+                        bs
+# 1018 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bindlist) (_startpos_bs_ : Lexing.position) (_endpos_bs_ : Lexing.position) (_startofs_bs_ : int) (_endofs_bs_ : int) (_loc_bs_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+                  _4
+# 1022 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+            b
+# 1026 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bind) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+       _2
+# 1030 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 143 "lamp/menhir_parser.mly"
+   _1
+# 1034 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 144 "lamp/menhir_parser.mly"
+    ( let (x,r) = b in
+      Let(Fix (mk_tfun_of_list bs r, (x, mk_lambdas bs e1 r)), (x, e2)) )
+# 1040 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 141 "lamp/menhir_parser.mly"
+                           e
+# 1045 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 141 "lamp/menhir_parser.mly"
+                      _3
+# 1049 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 141 "lamp/menhir_parser.mly"
+           bs
+# 1053 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_bindlist) (_startpos_bs_ : Lexing.position) (_endpos_bs_ : Lexing.position) (_startofs_bs_ : int) (_endofs_bs_ : int) (_loc_bs_ : Lexing.position * Lexing.position) (
+# 141 "lamp/menhir_parser.mly"
+   _1
+# 1057 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 142 "lamp/menhir_parser.mly"
+    ( mk_lambdas bs e None )
+# 1062 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 139 "lamp/menhir_parser.mly"
+                 t
+# 1067 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
+# 139 "lamp/menhir_parser.mly"
+          _2
+# 1071 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 139 "lamp/menhir_parser.mly"
+    e
+# 1075 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 140 "lamp/menhir_parser.mly"
+    ( Ast.Annot(e, t) )
+# 1080 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 137 "lamp/menhir_parser.mly"
+    e
+# 1085 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_app) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) : 'tv_expr ->
+    
+# 138 "lamp/menhir_parser.mly"
+    ( e )
+# 1090 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 202 "lamp/menhir_parser.mly"
+                             e
+# 1095 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 202 "lamp/menhir_parser.mly"
+                  _4
+# 1099 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 202 "lamp/menhir_parser.mly"
+              y
+# 1103 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 1107 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_y_ : Lexing.position) (_endpos_y_ : Lexing.position) (_startofs_y_ : int) (_endofs_y_ : int) (_loc_y_ : Lexing.position * Lexing.position) (
+# 202 "lamp/menhir_parser.mly"
+        _2
+# 1111 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 202 "lamp/menhir_parser.mly"
+    x
+# 1115 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 1119 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_cons_branch ->
+    
+# 203 "lamp/menhir_parser.mly"
+    ( (x, y, e) )
+# 1124 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+                       e
+# 1129 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+            _3
+# 1133 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+        x
+# 1137 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 1141 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+   _1
+# 1145 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_case_CASE2_ ->
+    
+# 213 "lamp/menhir_parser.mly"
+    ( (x, e) )
+# 1150 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+                       e
+# 1155 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+            _3
+# 1159 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+        x
+# 1163 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 1167 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) (
+# 212 "lamp/menhir_parser.mly"
+   _1
+# 1171 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_case_CASE1_ ->
+    
+# 213 "lamp/menhir_parser.mly"
+    ( (x, e) )
+# 1176 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 182 "lamp/menhir_parser.mly"
+             _3
+# 1181 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 182 "lamp/menhir_parser.mly"
+        _2
+# 1185 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 182 "lamp/menhir_parser.mly"
+   _1
+# 1189 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 183 "lamp/menhir_parser.mly"
+    ( ListCons(_1, _3) )
+# 1194 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 180 "lamp/menhir_parser.mly"
+           _3
+# 1199 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 180 "lamp/menhir_parser.mly"
+        _2
+# 1203 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 180 "lamp/menhir_parser.mly"
+   _1
+# 1207 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 181 "lamp/menhir_parser.mly"
+    ( Comp(Eq, _1, _3) )
+# 1212 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 178 "lamp/menhir_parser.mly"
+           _3
+# 1217 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 178 "lamp/menhir_parser.mly"
+        _2
+# 1221 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 178 "lamp/menhir_parser.mly"
+   _1
+# 1225 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 179 "lamp/menhir_parser.mly"
+    ( Comp(Gt, _1, _3) )
+# 1230 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 176 "lamp/menhir_parser.mly"
+           _3
+# 1235 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 176 "lamp/menhir_parser.mly"
+        _2
+# 1239 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 176 "lamp/menhir_parser.mly"
+   _1
+# 1243 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 177 "lamp/menhir_parser.mly"
+    ( Comp(Lt, _1, _3) )
+# 1248 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 174 "lamp/menhir_parser.mly"
+              _3
+# 1253 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 174 "lamp/menhir_parser.mly"
+        _2
+# 1257 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 174 "lamp/menhir_parser.mly"
+   _1
+# 1261 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 175 "lamp/menhir_parser.mly"
+    ( Binop(Mul, _1, _3) )
+# 1266 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 172 "lamp/menhir_parser.mly"
+            _3
+# 1271 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 172 "lamp/menhir_parser.mly"
+        _2
+# 1275 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 172 "lamp/menhir_parser.mly"
+   _1
+# 1279 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 173 "lamp/menhir_parser.mly"
+    ( Binop(Sub, _1, _3) )
+# 1284 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 170 "lamp/menhir_parser.mly"
+             _3
+# 1289 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 170 "lamp/menhir_parser.mly"
+        _2
+# 1293 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 170 "lamp/menhir_parser.mly"
+   _1
+# 1297 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_expr) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_binop_expr_ ->
+    
+# 171 "lamp/menhir_parser.mly"
+    ( Binop(Add, _1, _3) )
+# 1302 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 133 "lamp/menhir_parser.mly"
+    l
+# 1307 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_separated_nonempty_list_COMMA_bind_) (_startpos_l_ : Lexing.position) (_endpos_l_ : Lexing.position) (_startofs_l_ : int) (_endofs_l_ : int) (_loc_l_ : Lexing.position * Lexing.position) : 'tv_bindlist ->
+    
+# 134 "lamp/menhir_parser.mly"
+    ( l )
+# 1312 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 129 "lamp/menhir_parser.mly"
+    x
+# 1317 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 1321 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_bind ->
+    
+# 130 "lamp/menhir_parser.mly"
+    ( (x, None) )
+# 1326 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 127 "lamp/menhir_parser.mly"
+               t
+# 1331 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_ty) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
+# 127 "lamp/menhir_parser.mly"
+        _2
+# 1335 "lamp/menhir_parser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 127 "lamp/menhir_parser.mly"
+    x
+# 1339 "lamp/menhir_parser__mock.ml.mock"
+   : (
+# 34 "lamp/menhir_parser.mly"
+       (string)
+# 1343 "lamp/menhir_parser__mock.ml.mock"
+  )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) : 'tv_bind ->
+    
+# 128 "lamp/menhir_parser.mly"
+    ( (x, Some t) )
+# 1348 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 188 "lamp/menhir_parser.mly"
+           e2
+# 1353 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_term) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 188 "lamp/menhir_parser.mly"
+    e1
+# 1357 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_app) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) : 'tv_app ->
+    
+# 189 "lamp/menhir_parser.mly"
+    ( App(e1, e2) )
+# 1362 "lamp/menhir_parser__mock.ml.mock"
+     in
+  let _ = fun (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 186 "lamp/menhir_parser.mly"
+   _1
+# 1367 "lamp/menhir_parser__mock.ml.mock"
+   : 'tv_term) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) : 'tv_app ->
+    
+# 187 "lamp/menhir_parser.mly"
+    ( _1 )
+# 1372 "lamp/menhir_parser__mock.ml.mock"
+     in
+  ((let rec diverge() = diverge() in diverge()) : 'tv_void_match * 'tv_tyarg_opt * 'tv_ty_var * 'tv_ty_eof * 'tv_ty_atom * 'tv_ty * 'tv_term * 'tv_sum_match * 'tv_separated_nonempty_list_COMMA_bind_ * 'tv_script_eof * 'tv_repl_command_eof * 'tv_repl_command * 'tv_option_BAR_ * 'tv_nil_branch * 'tv_list_match * 'tv_list_file_command_ * 'tv_file_command * 'tv_expr_eof * 'tv_expr * 'tv_cons_branch * 'tv_case_CASE2_ * 'tv_case_CASE1_ * 'tv_binop_expr_ * 'tv_bindlist * 'tv_bind * 'tv_app)
+
+and menhir_end_marker =
+  0

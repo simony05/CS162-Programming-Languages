@@ -1,0 +1,1 @@
+lamp/lexer.pp.ml: Base Expect_test_collector Lexing Menhir_parser Ppx_bench_lib Ppx_inline_test_lib Ppx_module_timer_runtime Printf

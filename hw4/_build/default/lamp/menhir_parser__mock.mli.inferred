@@ -1,0 +1,86 @@
+type token =
+    WITH
+  | VOID
+  | TYLIST
+  | TYINT
+  | TYBOOL
+  | TRUE
+  | TIMES
+  | TICK
+  | THINARROW
+  | THEN
+  | SUB
+  | SND
+  | RPAREN
+  | REC
+  | RBRACK
+  | PLUS
+  | NUMBER of int
+  | NIL
+  | MATCH
+  | LT
+  | LPAREN
+  | LET
+  | LBRACK
+  | LAMBDA
+  | IS
+  | IN
+  | IF
+  | ID of string
+  | GT
+  | FUN
+  | FST
+  | FORALL
+  | FIX
+  | FILE of string
+  | FALSE
+  | EQ
+  | EOF
+  | END
+  | ELSE
+  | DOT
+  | CSYNTH
+  | CSAVE
+  | CPRINT
+  | CONS
+  | COMMA
+  | COLON
+  | CLOAD
+  | CLET
+  | CCLEAR
+  | CASE2
+  | CASE1
+  | BAR
+val mk_lambdas :
+  (string * Ast.ty option) list -> Ast.expr -> Ast.ty option -> Ast.expr
+val mk_tfun_of_list :
+  (string * Ast.ty option) list -> Ast.ty option -> Ast.ty option
+val mk_let : string -> Ast.ty option -> Ast.expr -> Ast.expr -> Ast.expr
+val menhir_begin_marker : int
+val xv_void_match : Ast.expr
+val xv_tyarg_opt : Ast.ty option
+val xv_ty_var : string
+val xv_ty_eof : Ast.ty
+val xv_ty_atom : Ast.ty
+val xv_ty : Ast.ty
+val xv_term : Ast.expr
+val xv_sum_match : Ast.expr
+val xv_separated_nonempty_list_COMMA_bind_ : (string * Ast.ty option) list
+val xv_script_eof : Cmd.t list
+val xv_repl_command_eof : Cmd.t
+val xv_repl_command : Cmd.t
+val xv_option_BAR_ : unit option
+val xv_nil_branch : Ast.expr
+val xv_list_match : Ast.expr
+val xv_list_file_command_ : Cmd.t list
+val xv_file_command : Cmd.t
+val xv_expr_eof : Ast.expr
+val xv_expr : Ast.expr
+val xv_cons_branch : string * string * Ast.expr
+val xv_case_CASE2_ : Ast.expr Ast.binder
+val xv_case_CASE1_ : Ast.expr Ast.binder
+val xv_binop_expr_ : Ast.expr
+val xv_bindlist : (string * Ast.ty option) list
+val xv_bind : string * Ast.ty option
+val xv_app : Ast.expr
+val menhir_end_marker : int

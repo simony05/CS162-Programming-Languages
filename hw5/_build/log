@@ -1,0 +1,16 @@
+# dune runtest
+# OCAMLPARAM: unset
+# Shared cache: enabled-except-user-rules
+# Shared cache location: /Users/simon/.cache/dune/db
+# Workspace root: /Users/simon/Documents/GitHub/CS162-Programming-Languages/hw5
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /Users/simon/.opam/default/bin/ocamlc.opt -config > /var/folders/vs/9n675nkx79x61sfpxwhy5ljh0000gq/T/dune_6637cd_output

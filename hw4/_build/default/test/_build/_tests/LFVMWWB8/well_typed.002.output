@@ -1,0 +1,35 @@
+[33mASSERT[0m let fib = (Ast.Fix ((Some (Ast.TFun (Ast.TInt, Ast.TInt))),
+             ("fib",
+              (Ast.Lambda ((Some Ast.TInt),
+                 ("n",
+                  (Ast.Annot (
+                     (Ast.IfThenElse (
+                        (Ast.Comp (Ast.Eq, (Ast.Var "n"), (Ast.Num 0))),
+                        (Ast.Num 0),
+                        (Ast.IfThenElse (
+                           (Ast.Comp (Ast.Eq, (Ast.Var "n"), (Ast.Num 1))),
+                           (Ast.Num 1),
+                           (Ast.Let (
+                              (Ast.App ((Ast.Var "fib"),
+                                 (Ast.Binop (Ast.Sub, (Ast.Var "n"),
+                                    (Ast.Num 1)))
+                                 )),
+                              ("x",
+                               (Ast.Let (
+                                  (Ast.Annot (
+                                     (Ast.App ((Ast.Var "fib"),
+                                        (Ast.Binop (Ast.Sub, (Ast.Var "n"),
+                                           (Ast.Num 2)))
+                                        )),
+                                     Ast.TInt)),
+                                  ("y",
+                                   (Ast.Binop (Ast.Add, (Ast.Var "x"),
+                                      (Ast.Var "y"))))
+                                  )))
+                              ))
+                           ))
+                        )),
+                     Ast.TInt)))
+                 )))
+             )) in
+(Ast.Annot ((Ast.App ((Ast.Var "fib"), (Ast.Num 30))), Ast.TInt))
